@@ -49,22 +49,50 @@ def move(game_state: typing.Dict) -> typing.Dict:
     # We've included code to prevent your Battlesnake from moving backwards
     my_head = game_state["you"]["body"][0]  # Coordinates of your head
     my_neck = game_state["you"]["body"][1]  # Coordinates of your "neck"
-
+    print(len(game_state["you"]["body"]))
+    for i in range(len(game_state["you"]["body"]) - 3):
+        my_tails = game_state["you"]["body"][(i+2)]
+        if my_head["y"] + 1 == my_tails["y"] and my_head["x"] == my_tails["x"]:
+            is_move_safe["up"] = False
+        if my_head["y"] - 1 == my_tails["y"] and my_head["x"] == my_tails["x"]:
+            is_move_safe["down"] = False
+        if my_head["x"] + 1 == my_tails["x"] and my_head["y"] == my_tails["y"]:
+            is_move_safe["right"] = False
+        if my_head["x"] - 1 == my_tails["x"] and my_head["y"] == my_tails["y"]:
+            is_move_safe["left"] = False
+        
+        print("left:" + str(is_move_safe["left"]))
+        print("right:" + str(is_move_safe["right"]))
+        print("up:" + str(is_move_safe["up"]))
+        print("down:" + str(is_move_safe["down"]))
+        print(str(my_tails["x"]) + ":" + str(my_tails["y"]))
+        print(" ")
+    print(str(my_head["x"]) + ":" + str(my_head["y"]))
     if my_neck["x"] < my_head["x"]:  # Neck is left of head, don't move left
         is_move_safe["left"] = False
-
     elif my_neck["x"] > my_head["x"]:  # Neck is right of head, don't move right
         is_move_safe["right"] = False
-
     elif my_neck["y"] < my_head["y"]:  # Neck is below head, don't move down
         is_move_safe["down"] = False
-
     elif my_neck["y"] > my_head["y"]:  # Neck is above head, don't move up
         is_move_safe["up"] = False
         #print("test")
-    if my_head["y"] + 1 >= 1:
-        print("test")
-
+        #print(my_head["y"])
+    #if my_head["y"] + 1 == my_tails["y"]:
+    #    print(my_tails["y"])
+    if my_head["y"] + 1 > 10:
+        is_move_safe["up"] = False
+    if my_head["y"] - 1 < 0:
+        is_move_safe["down"] = False
+    if my_head["x"] + 1 > 10:
+        is_move_safe["right"] = False
+    if my_head["x"] - 1 < 0:
+        is_move_safe["left"] = False
+    print("left:" + str(is_move_safe["left"]))
+    print("right:" + str(is_move_safe["right"]))
+    print("up:" + str(is_move_safe["up"]))
+    print("down:" + str(is_move_safe["down"]))
+    
     # TODO: Step 1 - Prevent your Battlesnake from moving out of bounds
     # board_width = game_state['board']['width']
     # board_height = game_state['board']['height']
