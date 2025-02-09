@@ -119,16 +119,16 @@ def move(game_state: typing.Dict) -> typing.Dict:
     # opponents = game_state['board']['snakes']
 
     # Are there any safe moves left?
-    if is_move_safe["up"] and is_move_safe["down"] and down_right:
-        #print(down_right)
-        is_move_safe["down"] = False
-    if is_move_safe["right"] and is_move_safe["left"] and right_down:
-        is_move_safe["right"] = False
-    if is_move_safe["up"] and is_move_safe["down"] and up_left:
-        #print(down_right)
-        is_move_safe["up"] = False
-    if is_move_safe["right"] and is_move_safe["left"] and left_up:
-        is_move_safe["left"] = False
+    if is_move_safe["up"] and is_move_safe["down"]:
+        if down_right:
+            is_move_safe["down"] = False
+        elif up_left:
+            is_move_safe["up"] = False
+    if is_move_safe["right"] and is_move_safe["left"]:
+        if right_down:
+            is_move_safe["right"] = False
+        elif left_up:
+            is_move_safe["left"] = False
     safe_moves = []
     for move, isSafe in is_move_safe.items():
         if isSafe:
