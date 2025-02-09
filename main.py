@@ -75,6 +75,8 @@ def move(game_state: typing.Dict) -> typing.Dict:
             up_left = True
         if my_head["y"] == my_tails["y"] and my_head["x"] > my_tails["x"]:
             left_up = True
+        if is_move_safe["left"] == False and is_move_safe["right"] == False and is_move_safe["up"] == False and is_move_safe["down"] == False:
+            break
         
         print("left:" + str(is_move_safe["left"]))
         print("right:" + str(is_move_safe["right"]))
