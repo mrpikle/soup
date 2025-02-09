@@ -95,6 +95,7 @@ def move(game_state: typing.Dict) -> typing.Dict:
     print("right:" + str(is_move_safe["right"]))
     print("up:" + str(is_move_safe["up"]))
     print("down:" + str(is_move_safe["down"]))
+    print(food[0])
     # TODO: Step 1 - Prevent your Battlesnake from moving out of bounds
     # board_width = game_state['board']['width']
     # board_height = game_state['board']['height']
@@ -116,7 +117,16 @@ def move(game_state: typing.Dict) -> typing.Dict:
         return {"move": "down"}
 
     # Choose a random move from the safe ones
-    next_move = random.choice(safe_moves)
+    if food[0]["x"] < my_head["x"] and is_move_safe["left"]:
+        next_move = "left"
+    elif food[0]["y"] < my_head["y"] and is_move_safe["down"]:
+        next_move = "down"
+    elif food[0]["y"] > my_head["y"] and is_move_safe["up"]:
+        next_move = "up"
+    elif food[0]["x"] > my_head["x"] and is_move_safe["right"]:
+        next_move = "right"
+    else:
+        next_move = random.choice(safe_moves)
 
     # TODO: Step 4 - Move towards food instead of random, to regain health and survive longer
     # food = game_state['board']['food']
