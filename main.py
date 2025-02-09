@@ -143,6 +143,8 @@ def move(game_state: typing.Dict) -> typing.Dict:
         if food[foodnum]["x"] == 0 or food[foodnum]["y"] == 0 or food[foodnum]["y"] == height or food[foodnum]["x"] == width:
             if foodnum + 1 in range(len(food)):
                 foodnum += 1
+        else:
+            break
     print(food[foodnum])
     if food[foodnum]["x"] < my_head["x"] and is_move_safe["left"] and food[foodnum]["x"] != 0:
         next_move = "left"
