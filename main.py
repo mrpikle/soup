@@ -51,8 +51,9 @@ def move(game_state: typing.Dict) -> typing.Dict:
     my_neck = game_state["you"]["body"][1]  # Coordinates of your "neck"
     width = game_state["board"]["width"] - 1
     height = game_state["board"]["height"] - 1
+    food = game_state["board"]["food"]
     print(len(game_state["you"]["body"]))
-    for i in range(len(game_state["you"]["body"]) - 3):
+    for i in range(len(game_state["you"]["body"]) - 2):
         my_tails = game_state["you"]["body"][(i+2)]
         if my_head["y"] + 1 == my_tails["y"] and my_head["x"] == my_tails["x"]:
             is_move_safe["up"] = False
