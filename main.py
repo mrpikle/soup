@@ -52,6 +52,7 @@ def move(game_state: typing.Dict) -> typing.Dict:
     width = game_state["board"]["width"] - 1
     height = game_state["board"]["height"] - 1
     food = game_state["board"]["food"]
+    down_right = False
     print(len(game_state["you"]["body"]))
     for i in range(len(game_state["you"]["body"]) - 2):
         my_tails = game_state["you"]["body"][(i+2)]
@@ -63,6 +64,8 @@ def move(game_state: typing.Dict) -> typing.Dict:
             is_move_safe["right"] = False
         if my_head["x"] - 1 == my_tails["x"] and my_head["y"] == my_tails["y"]:
             is_move_safe["left"] = False
+        if my_head["x"] == my_tails["x"] and my_head["y"] > my_tails["y"]:
+            down_right = True
         
         print("left:" + str(is_move_safe["left"]))
         print("right:" + str(is_move_safe["right"]))
@@ -107,6 +110,9 @@ def move(game_state: typing.Dict) -> typing.Dict:
     # opponents = game_state['board']['snakes']
 
     # Are there any safe moves left?
+    if is_move_safe["up"] and is_move_safe["down"] and down_right:
+        print(down_right)
+        is_move_safe["down"] = False
     safe_moves = []
     for move, isSafe in is_move_safe.items():
         if isSafe:
@@ -143,7 +149,7 @@ def move(game_state: typing.Dict) -> typing.Dict:
 
     # TODO: Step 4 - Move towards food instead of random, to regain health and survive longer
     # food = game_state['board']['food']
-
+    print(game_state["you"]["latency"])
     print(f"MOVE {game_state['turn']}: {next_move}")
     return {"move": next_move}
 
