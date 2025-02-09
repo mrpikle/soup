@@ -53,6 +53,9 @@ def move(game_state: typing.Dict) -> typing.Dict:
     height = game_state["board"]["height"] - 1
     food = game_state["board"]["food"]
     down_right = False
+    right_down = False
+    up_left = False
+    left_up = False
     print(len(game_state["you"]["body"]))
     for i in range(len(game_state["you"]["body"]) - 2):
         my_tails = game_state["you"]["body"][(i+2)]
@@ -66,6 +69,12 @@ def move(game_state: typing.Dict) -> typing.Dict:
             is_move_safe["left"] = False
         if my_head["x"] == my_tails["x"] and my_head["y"] > my_tails["y"]:
             down_right = True
+        if my_head["y"] == my_tails["y"] and my_head["x"] < my_tails["x"]:
+            right_down = True
+        if my_head["x"] == my_tails["x"] and my_head["y"] < my_tails["y"]:
+            up_left = True
+        if my_head["y"] == my_tails["y"] and my_head["x"] > my_tails["x"]:
+            left_up = True
         
         print("left:" + str(is_move_safe["left"]))
         print("right:" + str(is_move_safe["right"]))
@@ -113,6 +122,13 @@ def move(game_state: typing.Dict) -> typing.Dict:
     if is_move_safe["up"] and is_move_safe["down"] and down_right:
         print(down_right)
         is_move_safe["down"] = False
+    if is_move_safe["right"] and is_move_safe["left"] and right_down:
+        is_move_safe["right"] = False
+    if is_move_safe["up"] and is_move_safe["down"] and up_left:
+        print(down_right)
+        is_move_safe["up"] = False
+    if is_move_safe["right"] and is_move_safe["left"] and left_up:
+        is_move_safe["left"] = False
     safe_moves = []
     for move, isSafe in is_move_safe.items():
         if isSafe:
