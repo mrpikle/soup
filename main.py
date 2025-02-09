@@ -95,7 +95,7 @@ def move(game_state: typing.Dict) -> typing.Dict:
     print("right:" + str(is_move_safe["right"]))
     print("up:" + str(is_move_safe["up"]))
     print("down:" + str(is_move_safe["down"]))
-    print(food[0])
+
     # TODO: Step 1 - Prevent your Battlesnake from moving out of bounds
     # board_width = game_state['board']['width']
     # board_height = game_state['board']['height']
@@ -115,15 +115,20 @@ def move(game_state: typing.Dict) -> typing.Dict:
     if len(safe_moves) == 0:
         print(f"MOVE {game_state['turn']}: No safe moves detected! Moving down")
         return {"move": "down"}
-
+    foodnum = 0
     # Choose a random move from the safe ones
-    if food[0]["x"] < my_head["x"] and is_move_safe["left"]:
+    for e in range(len(food)):
+        if food[foodnum]["x"] == 0 or food[foodnum]["y"] == 0 or food[foodnum]["y"] == height or food[foodnum]["x"] == width:
+            if foodnum + 1 in range(len(food)):
+                foodnum += 1
+    print(food[foodnum])
+    if food[foodnum]["x"] < my_head["x"] and is_move_safe["left"] and food[foodnum]["x"] != 0:
         next_move = "left"
-    elif food[0]["y"] < my_head["y"] and is_move_safe["down"]:
+    elif food[foodnum]["y"] < my_head["y"] and is_move_safe["down"] and food[foodnum]["y"] != 0:
         next_move = "down"
-    elif food[0]["y"] > my_head["y"] and is_move_safe["up"]:
+    elif food[foodnum]["y"] > my_head["y"] and is_move_safe["up"] and food[foodnum]["y"] != height:
         next_move = "up"
-    elif food[0]["x"] > my_head["x"] and is_move_safe["right"]:
+    elif food[foodnum]["x"] > my_head["x"] and is_move_safe["right"] and food[foodnum]["x"] != width:
         next_move = "right"
     else:
         next_move = random.choice(safe_moves)
