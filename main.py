@@ -13,7 +13,15 @@
 import random
 import typing
 
-
+"""
+TO DO:
+-Avoid "certain death" scenarios
+-Avoid stupid moves
+-Move to offensive and defensive
+-Optimize
+-Speed up response time
+-Add optimal food location
+"""
 # info is called when you create your Battlesnake on play.battlesnake.com
 # and controls your Battlesnake's appearance
 # TIP: If you open your Battlesnake URL in a browser you should see this data
