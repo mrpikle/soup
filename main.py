@@ -155,25 +155,37 @@ def move(game_state: typing.Dict) -> typing.Dict:
                 foodnum += 1
         else:
             break
-    print(food[foodnum])
-    if food[foodnum]["x"] < my_head["x"] and is_move_safe["left"] and food[foodnum]["x"] != 0:
-        next_move = "left"
-    elif food[foodnum]["y"] < my_head["y"] and is_move_safe["down"] and food[foodnum]["y"] != 0:
-        next_move = "down"
-    elif food[foodnum]["y"] > my_head["y"] and is_move_safe["up"] and food[foodnum]["y"] != height:
-        next_move = "up"
-    elif food[foodnum]["x"] > my_head["x"] and is_move_safe["right"] and food[foodnum]["x"] != width:
-        next_move = "right"
-    elif is_move_safe["right"]:
-        next_move = "right"
-    elif is_move_safe["left"]:
-        next_move = "left"
-    elif is_move_safe["down"]:
-        next_move = "down"
-    elif is_move_safe["up"]:
-        next_move = "up"
+    if len(food) > 0:
+        print(food[foodnum])
+        if food[foodnum]["x"] < my_head["x"] and is_move_safe["left"] and food[foodnum]["x"] != 0:
+            next_move = "left"
+        elif food[foodnum]["y"] < my_head["y"] and is_move_safe["down"] and food[foodnum]["y"] != 0:
+            next_move = "down"
+        elif food[foodnum]["y"] > my_head["y"] and is_move_safe["up"] and food[foodnum]["y"] != height:
+            next_move = "up"
+        elif food[foodnum]["x"] > my_head["x"] and is_move_safe["right"] and food[foodnum]["x"] != width:
+            next_move = "right"
+        elif is_move_safe["right"]:
+            next_move = "right"
+        elif is_move_safe["left"]:
+            next_move = "left"
+        elif is_move_safe["down"]:
+            next_move = "down"
+        elif is_move_safe["up"]:
+            next_move = "up"
+        else:
+            next_move = random.choice(safe_moves)
     else:
-        next_move = random.choice(safe_moves)
+        if is_move_safe["right"]:
+            next_move = "right"
+        elif is_move_safe["left"]:
+            next_move = "left"
+        elif is_move_safe["down"]:
+            next_move = "down"
+        elif is_move_safe["up"]:
+            next_move = "up"
+        else:
+            next_move = random.choice(safe_moves)
 
     # TODO: Step 4 - Move towards food instead of random, to regain health and survive longer
     # food = game_state['board']['food']
